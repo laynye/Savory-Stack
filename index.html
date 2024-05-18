@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Savory Stacks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(17, 182, 47);
+            font-family: sans-serif;
+        }
+        
+        .loginbox {
+            width: 90%;
+            max-width: 350px;
+            background: white;
+            color: black;
+            margin: 50px auto;
+            box-sizing: border-box;
+            padding: 60px 30px;
+            border-radius: 10px;
+        }
+        
+        .avatar {
+            width: 40%;
+            max-width: 150px;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        h1 {
+            margin: 0;
+            padding: 0 0 20px;
+            text-align: center;
+            font-size: 22px;
+        }
+        
+        .loginbox p {
+            margin: 0;
+            padding: 0;
+            font-weight: bold;
+        }
+        
+        .loginbox input,
+        select {
+            width: 100%;
+            margin-bottom: 20px;
+            border: none;
+            border-bottom: 1px solid black;
+            background: transparent;
+            outline: none;
+            height: 40px;
+            color: black;
+            font-size: 18px;
+        }
+        
+        .loginbox input[type="submit"] {
+            border: none;
+            outline: none;
+            height: 40px;
+            background: rgb(204, 112, 6);
+            color: white;
+            font-size: 18px;
+            border-radius: 20px;
+        }
+        
+        .loginbox input[type="submit"]:hover {
+            cursor: pointer;
+            background: #ffc107;
+            color: black;
+        }
+        
+        .loginbox a {
+            text-decoration: none;
+            font-size: 12px;
+            line-height: 20px;
+            color: darkgrey;
+        }
+        
+        .loginbox a:hover {
+            color: #ffc107;
+        }
+
+        .sandwich-calories {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .payment-image {
+            display: none;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #gcashButton {
+            display: none;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: rgb(204, 112, 6);
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .loginbox {
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loginbox">
+        <img src="savory.png" class="avatar">
+        <h1>Savory Stacks</h1>
+        <form id="loginForm" onsubmit="return recommendSandwich()">
+            <p>Name</p>
+            <input type="text" name="name" placeholder="Enter Name" required>
+            <p>Weight</p>
+            <input type="number" id="weight" name="weight" placeholder="Enter Weight (kg)" required>
+            <p>Height</p>
+            <input type="number" id="height" name="height" placeholder="Enter Height (cm)" required>
+            <p>Health Preference/Status</p>
+            <select id="preference" name="preference">
+                <option value="bulking">Bulking</option>
+                <option value="losing">Losing Weight</option>
+                <option value="maintaining">Maintaining Weight</option>
+            </select>
+            <button id="gcashButton" onclick="showPaymentImage()">Pay with GCash</button>
+            <img src="qr.png" class="payment-image" id="gcashImage">
+            <input type="submit" value="Complete"><br>
+        </form>
+        <div class="sandwich-calories" id="sandwichCalories"></div>
+    </div>
+
+    <script>
+        function recommendSandwich() {
+            var weight = parseFloat(document.getElementById("weight").value);
+            var preference = document.getElementById("preference").value;
+            var recommendation;
+            var calories;
+
+            if (preference === "bulking") {
+                if (weight > 80) {
+                    recommendation = "Beef Kebab";
+                    calories = 500;
+                } else if (weight < 60) {
+                    recommendation = "Beef Kebab";
+                    calories = 500;
+                } else {
+                    recommendation = "Chicken Petcho";
+                    calories = 400;
+                }
+            } else if (preference === "losing") {
+                if (weight > 80) {
+                    recommendation = "Vegan";
+                    calories = 300;
+                } else if (weight < 60) {
+                    recommendation = "Vegan";
+                    calories = 300;
+                } else {
+                    recommendation = "Sisig Ranch";
+                    calories = 450;
+                }
+            } else if (preference === "maintaining") {
+                if (weight > 80) {
+                    recommendation = "Chicken Petcho";
+                    calories = 400;
+                } else if (weight < 60) {
+                    recommendation = "Sisig Ranch";
+                    calories = 450;
+                } else {
+                    recommendation = "Chicken Petcho";
+                    calories = 400;
+                }
+            }
+
+            var sandwichCalories = document.getElementById("sandwichCalories");
+            sandwichCalories.innerHTML = "Based on your answers, we recommend the " + recommendation + " sandwich. It contains approximately " + calories + " calories.";
+            
+            alert("Based on your answers, we recommend the " + recommendation + " sandwich. It contains approximately " + calories + " calories.");
+            
+            var gcashButton = document.getElementById("gcashButton");
+            gcashButton.style.display = "block";
+            
+            return false;
+        }
+
+        function showPaymentImage() {
+            var gcashImage = document.getElementById("gcashImage");
+            gcashImage.style.display = "block";
+        }
+    </script>
+</body>
+
+</html>
